@@ -4,6 +4,7 @@ import requests
 import requests_cache
 import modules
 from templates.generic import *
+from templates.quick_replies import add_quick_reply
 from templates.text import TextTemplate
 from templates.quick_replies import add_quick_reply
 
@@ -33,8 +34,10 @@ def process(input, entities=None):
         template = GenericTemplate()
         template.add_element(title=title, item_url=item_url, image_url=image_url, subtitle=subtitle,
                              buttons=buttons.get_buttons())
+
         message = template.get_message()
         message = add_quick_reply(message, 'Check out another!', modules.generate_postback('xkcd'))
+
         output['input'] = input
         output['output'] = message
         output['success'] = True
